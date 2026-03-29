@@ -1,7 +1,8 @@
 ---
 phase: 1
 slug: app-shell-ipc-foundation
-status: draft
+status: approved
+reviewed_at: 2026-03-29
 shadcn_initialized: false
 preset: none
 created: 2026-03-29
