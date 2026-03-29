@@ -12,7 +12,7 @@ Walnut delivers a Windows desktop file cleanup utility in four phases: scaffold 
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: App Shell & IPC Foundation** - Electron scaffold with dark-mode UI, folder picker, sidebar navigation, and typed IPC bridge
+- [x] **Phase 1: App Shell & IPC Foundation** - Electron scaffold with dark-mode UI, folder picker, sidebar navigation, and typed IPC bridge (completed 2026-03-29)
 - [ ] **Phase 2: Duplicate Detection** - Full scan-to-delete pipeline with content hashing, grouped display, smart selection, and preview-first deletion
 - [ ] **Phase 3: File Organization** - Type-based categorization, strategy pattern, dry-run preview, apply, and undo
 - [ ] **Phase 4: Quality & Distribution** - Testing pyramid, CI pipeline, scan history, installer packaging, and release automation
@@ -28,11 +28,11 @@ Decimal phases appear between their surrounding integers in numeric order.
   2. User clicks a folder picker button and selects a directory via the native Windows folder dialog, and the selected path is displayed in the UI
   3. User clicks sidebar items and the main content area switches between Duplicates and Organizer views (placeholder content is acceptable)
   4. The Electron main process, preload bridge, and renderer communicate through typed IPC contracts -- no raw ipcRenderer exposure
-**Plans:** 2 plans
+**Plans:** 2/2 plans complete
 
 Plans:
 - [x] 01-01-PLAN.md -- Scaffold electron-vite project, configure Tailwind v4 + shadcn/ui, set up typed IPC architecture and Zustand store
-- [ ] 01-02-PLAN.md -- Build app shell UI (sidebar, navigation, folder picker, placeholder pages) and verify
+- [x] 01-02-PLAN.md -- Build app shell UI (sidebar, navigation, folder picker, placeholder pages) and verify
 
 **UI hint**: yes
 
@@ -142,7 +142,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. App Shell & IPC Foundation | 0/2 | Planning complete | - |
+| 1. App Shell & IPC Foundation | 2/2 | Complete   | 2026-03-29 |
 | 2. Duplicate Detection | 0/0 | Not started | - |
 | 3. File Organization | 0/0 | Not started | - |
 | 4. Quality & Distribution | 0/0 | Not started | - |
