@@ -12,7 +12,10 @@ A user can scan any folder, instantly see their duplicate files and clutter, and
 
 ### Validated
 
-(None yet — ship to validate)
+**App Shell** — Validated in Phase 01: App Shell & IPC Foundation
+- [x] Dark-mode-first UI using shadcn/ui + Tailwind (VS Code / Linear aesthetic)
+- [x] Folder browser / picker to select target directory
+- [x] Sidebar navigation between features (Duplicates, Organizer, future modules)
 
 ### Active
 
@@ -31,10 +34,7 @@ A user can scan any folder, instantly see their duplicate files and clutter, and
 - [ ] Support multiple reorganization strategies (extensible — more added in future versions)
 - [ ] Undo last reorganization action (reverse the moves)
 
-**App Shell**
-- [ ] Dark-mode-first UI using shadcn/ui + Tailwind (VS Code / Linear aesthetic)
-- [ ] Folder browser / picker to select target directory
-- [ ] Sidebar navigation between features (Duplicates, Organizer, future modules)
+**App Shell** *(core validated in Phase 01 — remaining items deferred to later phases)*
 - [ ] Progress indicators for long-running scans
 - [ ] Persistent scan history (last scanned folders)
 
@@ -96,4 +96,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-29 after initialization*
+*Last updated: 2026-03-30 — Phase 01 (App Shell & IPC Foundation) complete*
