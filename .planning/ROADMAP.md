@@ -31,7 +31,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans:** 2 plans
 
 Plans:
-- [ ] 01-01-PLAN.md -- Scaffold electron-vite project, configure Tailwind v4 + shadcn/ui, set up typed IPC architecture and Zustand store
+- [x] 01-01-PLAN.md -- Scaffold electron-vite project, configure Tailwind v4 + shadcn/ui, set up typed IPC architecture and Zustand store
 - [ ] 01-02-PLAN.md -- Build app shell UI (sidebar, navigation, folder picker, placeholder pages) and verify
 
 **UI hint**: yes

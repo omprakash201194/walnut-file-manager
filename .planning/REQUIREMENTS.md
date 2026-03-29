@@ -9,8 +9,8 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### App Shell (SHELL)
 
-- [ ] **SHELL-01**: User can launch the app and see a dark-mode desktop window with sidebar navigation
-- [ ] **SHELL-02**: User can select a target folder using the system folder picker dialog
+- [x] **SHELL-01**: User can launch the app and see a dark-mode desktop window with sidebar navigation
+- [x] **SHELL-02**: User can select a target folder using the system folder picker dialog
 - [ ] **SHELL-03**: User can navigate between Duplicates and Organizer modules via the sidebar
 - [ ] **SHELL-04**: User can see their previously scanned folders (scan history) listed for quick re-access
 
@@ -115,8 +115,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| SHELL-01 | Phase 1 | Pending |
-| SHELL-02 | Phase 1 | Pending |
+| SHELL-01 | Phase 1 | Complete |
+| SHELL-02 | Phase 1 | Complete |
 | SHELL-03 | Phase 1 | Pending |
 | SHELL-04 | Phase 4 | Pending |
 | SCAN-01 | Phase 2 | Pending |
