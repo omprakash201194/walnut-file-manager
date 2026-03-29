@@ -28,7 +28,12 @@ Decimal phases appear between their surrounding integers in numeric order.
   2. User clicks a folder picker button and selects a directory via the native Windows folder dialog, and the selected path is displayed in the UI
   3. User clicks sidebar items and the main content area switches between Duplicates and Organizer views (placeholder content is acceptable)
   4. The Electron main process, preload bridge, and renderer communicate through typed IPC contracts -- no raw ipcRenderer exposure
-**Plans**: TBD
+**Plans:** 2 plans
+
+Plans:
+- [ ] 01-01-PLAN.md -- Scaffold electron-vite project, configure Tailwind v4 + shadcn/ui, set up typed IPC architecture and Zustand store
+- [ ] 01-02-PLAN.md -- Build app shell UI (sidebar, navigation, folder picker, placeholder pages) and verify
+
 **UI hint**: yes
 
 **UAT criteria:**
@@ -137,7 +142,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. App Shell & IPC Foundation | 0/0 | Not started | - |
+| 1. App Shell & IPC Foundation | 0/2 | Planning complete | - |
 | 2. Duplicate Detection | 0/0 | Not started | - |
 | 3. File Organization | 0/0 | Not started | - |
 | 4. Quality & Distribution | 0/0 | Not started | - |
