@@ -145,15 +145,15 @@ Which phases cover which requirements. Updated during roadmap creation.
 | QUALITY-02 | Phase 4 | Pending |
 | QUALITY-03 | Phase 4 | Pending |
 | QUALITY-04 | Phase 4 | Pending |
-| DIST-01 | Phase 5 | Pending |
-| DIST-02 | Phase 5 | Pending |
-| DIST-03 | Phase 5 | Pending |
+| DIST-01 | Phase 4 | Pending |
+| DIST-02 | Phase 4 | Pending |
+| DIST-03 | Phase 4 | Pending |
 
 **Coverage:**
 - v1 requirements: 33 total
 - Mapped to phases: 33
-- Unmapped: 0 ✓
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-03-29*
-*Last updated: 2026-03-29 after initial definition*
+*Last updated: 2026-03-29 after roadmap creation (4-phase structure)*
