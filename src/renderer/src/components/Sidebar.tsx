@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { NavLink } from 'react-router'
-import { Files, FolderTree } from 'lucide-react'
+import { Files, FolderTree, ShieldCheck, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { ScrollArea } from '@/components/ui/scroll-area'
@@ -11,6 +11,9 @@ function Sidebar() {
   const [isPickerOpen, setIsPickerOpen] = useState(false)
   const selectedFolder = useAppStore((s) => s.selectedFolder)
   const setSelectedFolder = useAppStore((s) => s.setSelectedFolder)
+  const protectedFolders = useAppStore((s) => s.protectedFolders)
+  const addProtectedFolder = useAppStore((s) => s.addProtectedFolder)
+  const removeProtectedFolder = useAppStore((s) => s.removeProtectedFolder)
 
   const handleChooseFolder = async () => {
     setIsPickerOpen(true)
@@ -93,6 +96,53 @@ function Sidebar() {
             <span className="text-muted-foreground italic">No folder selected</span>
           )}
         </p>
+      </div>
+
+      {/* Section D: Protected Folders (D-13 / DUPE-06) */}
+      <div className="px-4 pb-4">
+        <Separator className="mb-4" />
+        <p className="text-xs text-muted-foreground mb-2">Protected folders</p>
+
+        {/* Add current folder as protected */}
+        {selectedFolder && !protectedFolders.includes(selectedFolder) && (
+          <Button
+            variant="ghost"
+            size="xs"
+            className="w-full justify-start gap-1 h-7 text-xs px-2 mb-1"
+            onClick={() => addProtectedFolder(selectedFolder)}
+          >
+            <ShieldCheck className="size-3 shrink-0" />
+            + Add current folder as protected
+          </Button>
+        )}
+
+        {/* List of protected folders */}
+        {protectedFolders.length === 0 ? (
+          <p className="text-xs text-muted-foreground italic">None</p>
+        ) : (
+          <div className="flex flex-col gap-1">
+            {protectedFolders.map((folder) => (
+              <div key={folder} className="flex items-center gap-1 group">
+                <span
+                  className="text-xs text-foreground flex-1 truncate"
+                  title={folder}
+                  style={{ direction: 'rtl', textAlign: 'left' }}
+                >
+                  {folder}
+                </span>
+                <Button
+                  variant="ghost"
+                  size="xs"
+                  className="h-5 w-5 p-0 shrink-0 opacity-60 hover:opacity-100"
+                  onClick={() => removeProtectedFolder(folder)}
+                  aria-label={`Remove ${folder} from protected folders`}
+                >
+                  <X className="size-3" />
+                </Button>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   )
