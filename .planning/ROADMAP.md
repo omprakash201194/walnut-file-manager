@@ -61,7 +61,7 @@ Plans:
 **Plans:** 6 plans
 
 Plans:
-- [ ] 02-01-PLAN.md -- Extend shared/ipc-types.ts with scan type contracts; install shadcn accordion, checkbox, badge, progress
+- [x] 02-01-PLAN.md -- Extend shared/ipc-types.ts with scan type contracts; install shadcn accordion, checkbox, badge, progress
 - [ ] 02-02-PLAN.md -- Main process scan engine: walkDirectory, groupBySize, hashFile, registerScanHandlers with AbortController
 - [ ] 02-03-PLAN.md -- Preload IPC bridge for scan channels; extend Zustand store with scan state + applyPreset; formatBytes utility
 - [ ] 02-04-PLAN.md -- DuplicatesPage three-state UI: empty state, full-page progress view, accordion results with FileRow and preset selection

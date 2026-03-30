@@ -16,15 +16,15 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Scanning Infrastructure (SCAN)
 
-- [ ] **SCAN-01**: App recursively walks a selected directory and collects file metadata (name, path, size, modified date, extension)
-- [ ] **SCAN-02**: User sees a real-time progress indicator during scanning (files scanned / total, elapsed time, current path)
-- [ ] **SCAN-03**: User can cancel an in-progress scan at any time
-- [ ] **SCAN-04**: Scan results stream into the UI progressively — first results appear within 2 seconds of scan start
+- [x] **SCAN-01**: App recursively walks a selected directory and collects file metadata (name, path, size, modified date, extension)
+- [x] **SCAN-02**: User sees a real-time progress indicator during scanning (files scanned / total, elapsed time, current path)
+- [x] **SCAN-03**: User can cancel an in-progress scan at any time
+- [x] **SCAN-04**: Scan results stream into the UI progressively — first results appear within 2 seconds of scan start
 
 ### Duplicate Detection (DUPE)
 
-- [ ] **DUPE-01**: App pre-filters by file size — only files sharing an identical size proceed to hashing
-- [ ] **DUPE-02**: App computes SHA-256 content hash for size-colliding files to confirm true duplicates
+- [x] **DUPE-01**: App pre-filters by file size — only files sharing an identical size proceed to hashing
+- [x] **DUPE-02**: App computes SHA-256 content hash for size-colliding files to confirm true duplicates
 - [ ] **DUPE-03**: Duplicate groups are displayed in a list: each group shows all copies with path, size, and modified date
 - [ ] **DUPE-04**: User sees a space savings summary: "X duplicates found — you can reclaim Y GB"
 - [ ] **DUPE-05**: User can select which file(s) to remove within each duplicate group using checkboxes, with "keep newest" / "keep oldest" quick-select presets
@@ -38,7 +38,7 @@ Requirements for initial release. Each maps to roadmap phases.
 ### File Safety (SAFETY)
 
 - [ ] **SAFETY-01**: Before any deletion, user sees a preview panel listing exactly which files will be removed and their total size
-- [ ] **SAFETY-02**: Files are moved to the Windows Recycle Bin by default — permanent deletion is not available in v1
+- [x] **SAFETY-02**: Files are moved to the Windows Recycle Bin by default — permanent deletion is not available in v1
 - [ ] **SAFETY-03**: User must explicitly confirm the deletion action after reviewing the preview
 - [ ] **SAFETY-04**: Before any reorganization, user sees a dry-run preview showing proposed moves as a before/after directory tree
 - [ ] **SAFETY-05**: User can undo the last reorganization operation, reversing all file moves
@@ -119,12 +119,12 @@ Which phases cover which requirements. Updated during roadmap creation.
 | SHELL-02 | Phase 1 | Complete |
 | SHELL-03 | Phase 1 | Complete |
 | SHELL-04 | Phase 4 | Pending |
-| SCAN-01 | Phase 2 | Pending |
-| SCAN-02 | Phase 2 | Pending |
-| SCAN-03 | Phase 2 | Pending |
-| SCAN-04 | Phase 2 | Pending |
-| DUPE-01 | Phase 2 | Pending |
-| DUPE-02 | Phase 2 | Pending |
+| SCAN-01 | Phase 2 | Complete |
+| SCAN-02 | Phase 2 | Complete |
+| SCAN-03 | Phase 2 | Complete |
+| SCAN-04 | Phase 2 | Complete |
+| DUPE-01 | Phase 2 | Complete |
+| DUPE-02 | Phase 2 | Complete |
 | DUPE-03 | Phase 2 | Pending |
 | DUPE-04 | Phase 2 | Pending |
 | DUPE-05 | Phase 2 | Pending |
@@ -132,7 +132,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | SELECT-01 | Phase 2 | Pending |
 | SELECT-02 | Phase 2 | Pending |
 | SAFETY-01 | Phase 2 | Pending |
-| SAFETY-02 | Phase 2 | Pending |
+| SAFETY-02 | Phase 2 | Complete |
 | SAFETY-03 | Phase 2 | Pending |
 | SAFETY-04 | Phase 3 | Pending |
 | SAFETY-05 | Phase 3 | Pending |
