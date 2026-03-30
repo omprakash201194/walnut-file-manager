@@ -1,7 +1,10 @@
+// @vitest-environment node
 /**
  * Unit tests for src/main/handlers/scan.ts pure functions.
  * Tests walkDirectory, groupBySize, hashFile, and groupByHash.
  * IPC registration (registerScanHandlers) is integration-level and not tested here.
+ *
+ * Uses node environment because tests exercise Node.js fs/crypto APIs directly.
  */
 
 import { describe, it, expect, vi } from 'vitest'
