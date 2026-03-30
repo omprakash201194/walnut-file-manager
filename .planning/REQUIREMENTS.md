@@ -37,9 +37,9 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### File Safety (SAFETY)
 
-- [ ] **SAFETY-01**: Before any deletion, user sees a preview panel listing exactly which files will be removed and their total size
+- [x] **SAFETY-01**: Before any deletion, user sees a preview panel listing exactly which files will be removed and their total size
 - [x] **SAFETY-02**: Files are moved to the Windows Recycle Bin by default — permanent deletion is not available in v1
-- [ ] **SAFETY-03**: User must explicitly confirm the deletion action after reviewing the preview
+- [x] **SAFETY-03**: User must explicitly confirm the deletion action after reviewing the preview
 - [ ] **SAFETY-04**: Before any reorganization, user sees a dry-run preview showing proposed moves as a before/after directory tree
 - [ ] **SAFETY-05**: User can undo the last reorganization operation, reversing all file moves
 
@@ -131,9 +131,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | DUPE-06 | Phase 2 | Complete |
 | SELECT-01 | Phase 2 | Complete |
 | SELECT-02 | Phase 2 | Complete |
-| SAFETY-01 | Phase 2 | Pending |
+| SAFETY-01 | Phase 2 | Complete |
 | SAFETY-02 | Phase 2 | Complete |
-| SAFETY-03 | Phase 2 | Pending |
+| SAFETY-03 | Phase 2 | Complete |
 | SAFETY-04 | Phase 3 | Pending |
 | SAFETY-05 | Phase 3 | Pending |
 | ORG-01 | Phase 3 | Pending |

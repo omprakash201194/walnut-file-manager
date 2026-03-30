@@ -58,14 +58,14 @@ Plans:
   3. After scan completes, user sees duplicate groups listed with all copies showing path, size, and modified date, plus a summary like "X duplicates found -- you can reclaim Y GB"
   4. User can select files for deletion using per-file checkboxes or bulk presets (keep newest, keep oldest, keep from preferred folder), with protected folders excluded from auto-selection and at least one copy always retained
   5. User sees a preview panel listing exactly which files will be removed and their total size, confirms the action, and files are moved to the Windows Recycle Bin
-**Plans:** 3/6 plans executed
+**Plans:** 4/6 plans executed
 
 Plans:
 - [x] 02-01-PLAN.md -- Extend shared/ipc-types.ts with scan type contracts; install shadcn accordion, checkbox, badge, progress
 - [x] 02-02-PLAN.md -- Main process scan engine: walkDirectory, groupBySize, hashFile, registerScanHandlers with AbortController
 - [x] 02-03-PLAN.md -- Preload IPC bridge for scan channels; extend Zustand store with scan state + applyPreset; formatBytes utility
 - [ ] 02-04-PLAN.md -- DuplicatesPage three-state UI: empty state, full-page progress view, accordion results with FileRow and preset selection
-- [ ] 02-05-PLAN.md -- DeletePanel sticky bottom preview + delete trigger; Sidebar protected folders section
+- [x] 02-05-PLAN.md -- DeletePanel sticky bottom preview + delete trigger; Sidebar protected folders section
 - [ ] 02-06-PLAN.md -- Wire registerScanHandlers into main/index.ts; end-to-end human verification
 
 **UI hint**: yes
@@ -152,6 +152,6 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. App Shell & IPC Foundation | 2/2 | Complete   | 2026-03-29 |
-| 2. Duplicate Detection | 3/6 | In Progress|  |
+| 2. Duplicate Detection | 4/6 | In Progress|  |
 | 3. File Organization | 0/0 | Not started | - |
 | 4. Quality & Distribution | 0/0 | Not started | - |
