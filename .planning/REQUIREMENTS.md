@@ -40,15 +40,15 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **SAFETY-01**: Before any deletion, user sees a preview panel listing exactly which files will be removed and their total size
 - [x] **SAFETY-02**: Files are moved to the Windows Recycle Bin by default — permanent deletion is not available in v1
 - [x] **SAFETY-03**: User must explicitly confirm the deletion action after reviewing the preview
-- [ ] **SAFETY-04**: Before any reorganization, user sees a dry-run preview showing proposed moves as a before/after directory tree
-- [ ] **SAFETY-05**: User can undo the last reorganization operation, reversing all file moves
+- [x] **SAFETY-04**: Before any reorganization, user sees a dry-run preview showing proposed moves as a before/after directory tree
+- [x] **SAFETY-05**: User can undo the last reorganization operation, reversing all file moves
 
 ### File Organization (ORG)
 
-- [ ] **ORG-01**: App categorizes scanned files by type into: Documents, Photos, Music, Video, Archives, Other
+- [x] **ORG-01**: App categorizes scanned files by type into: Documents, Photos, Music, Video, Archives, Other
 - [x] **ORG-02**: User can select an organization strategy (v1 ships with "By Type" and "By Extension" strategies)
-- [ ] **ORG-03**: App generates and displays a dry-run preview of proposed file moves before executing
-- [ ] **ORG-04**: User can apply the reorganization — files are moved into type-based subdirectories within the target folder
+- [x] **ORG-03**: App generates and displays a dry-run preview of proposed file moves before executing
+- [x] **ORG-04**: User can apply the reorganization — files are moved into type-based subdirectories within the target folder
 - [x] **ORG-05**: Organization strategy is extensible — new strategies can be added in future versions without restructuring core logic
 
 ### Quality & Testing (QUALITY)
@@ -134,12 +134,12 @@ Which phases cover which requirements. Updated during roadmap creation.
 | SAFETY-01 | Phase 2 | Complete |
 | SAFETY-02 | Phase 2 | Complete |
 | SAFETY-03 | Phase 2 | Complete |
-| SAFETY-04 | Phase 3 | Pending |
-| SAFETY-05 | Phase 3 | Pending |
-| ORG-01 | Phase 3 | Pending |
+| SAFETY-04 | Phase 3 | Complete |
+| SAFETY-05 | Phase 3 | Complete |
+| ORG-01 | Phase 3 | Complete |
 | ORG-02 | Phase 3 | Complete |
-| ORG-03 | Phase 3 | Pending |
-| ORG-04 | Phase 3 | Pending |
+| ORG-03 | Phase 3 | Complete |
+| ORG-04 | Phase 3 | Complete |
 | ORG-05 | Phase 3 | Complete |
 | QUALITY-01 | Phase 4 | Pending |
 | QUALITY-02 | Phase 4 | Pending |
