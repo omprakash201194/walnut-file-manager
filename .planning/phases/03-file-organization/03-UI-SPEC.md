@@ -1,7 +1,8 @@
 ---
 phase: 3
 slug: file-organization
-status: draft
+status: approved
+reviewed_at: 2026-03-30
 shadcn_initialized: true
 preset: "new-york / zinc / dark-mode-only"
 created: 2026-03-30
