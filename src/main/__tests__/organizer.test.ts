@@ -18,12 +18,11 @@ vi.mock('electron-conf/main', () => {
     undoStack: [],
     lastApplyTimes: [],
   }
-  return {
-    Conf: vi.fn().mockImplementation(() => ({
-      get: (key: string) => store[key],
-      set: (key: string, value: unknown) => { store[key] = value },
-    })),
+  class MockConf {
+    get(key: string) { return store[key] }
+    set(key: string, value: unknown) { store[key] = value }
   }
+  return { Conf: MockConf }
 })
 
 // Mock electron ipcMain to avoid requiring a running Electron app
