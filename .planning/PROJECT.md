@@ -26,14 +26,16 @@ A user can scan any folder, instantly see their duplicate files and clutter, and
 - [x] Move-to-trash (not permanent delete) as the default delete action
 - [x] Protected folders: prevent accidental selection of files in designated safe directories
 
-### Active
+### Validated
 
-**File Organization**
-- [ ] Scan folder and categorize files by type: Documents, Photos, Music, Video, Archives, Other
-- [ ] Show proposed reorganization as a dry-run preview before applying
-- [ ] Apply reorganization: move files into type-based subdirectories
-- [ ] Support multiple reorganization strategies (extensible — more added in future versions)
-- [ ] Undo last reorganization action (reverse the moves)
+**File Organization** — Validated in Phase 03: File Organization
+- [x] Scan folder and categorize files by type: Documents, Photos, Music, Video, Archives, Other
+- [x] Show proposed reorganization as a dry-run preview before applying (SAFETY-04)
+- [x] Apply reorganization: move files into type-based subdirectories
+- [x] Support multiple reorganization strategies (extensible — more added in future versions)
+- [x] Undo last reorganization action (reverse the moves, persistent across restart)
+
+### Active
 
 **App Shell** *(core validated in Phase 01 — remaining items deferred to later phases)*
 - [ ] Progress indicators for long-running scans
@@ -97,4 +99,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-30 — Phase 02 (Duplicate Detection) complete*
+*Last updated: 2026-03-30 — Phase 03 (File Organization) complete*
