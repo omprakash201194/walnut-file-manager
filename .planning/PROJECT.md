@@ -17,15 +17,16 @@ A user can scan any folder, instantly see their duplicate files and clutter, and
 - [x] Folder browser / picker to select target directory
 - [x] Sidebar navigation between features (Duplicates, Organizer, future modules)
 
-### Active
+**Duplicate Detection** — Validated in Phase 02: Duplicate Detection
+- [x] Scan a selected folder (and subfolders) for duplicate files
+- [x] Smart detection: SHA-256 content hash + name-pattern detection (Windows "- Copy", numbered copies) with birthtime tiebreaker for same-mtime files
+- [x] Display duplicates grouped by file identity with file paths, sizes, and timestamps
+- [x] Allow user to select which duplicate(s) to remove (Keep Newest / Keep Oldest presets + manual selection)
+- [x] Preview panel (DeletePanel) showing exactly what will happen before any deletion
+- [x] Move-to-trash (not permanent delete) as the default delete action
+- [x] Protected folders: prevent accidental selection of files in designated safe directories
 
-**Duplicate Detection**
-- [ ] Scan a selected folder (and subfolders) for duplicate files
-- [ ] Smart detection: name + size pre-filter, then SHA-256 content hash for certainty
-- [ ] Display duplicates grouped by file identity with file paths, sizes, and timestamps
-- [ ] Allow user to select which duplicate(s) to remove (keep one, delete rest)
-- [ ] Preview panel showing exactly what will happen before any deletion
-- [ ] Move-to-trash (not permanent delete) as the default delete action
+### Active
 
 **File Organization**
 - [ ] Scan folder and categorize files by type: Documents, Photos, Music, Video, Archives, Other
@@ -96,4 +97,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-30 — Phase 01 (App Shell & IPC Foundation) complete*
+*Last updated: 2026-03-30 — Phase 02 (Duplicate Detection) complete*

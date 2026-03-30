@@ -1,14 +1,14 @@
 ---
-status: partial
+status: passed
 phase: 02-duplicate-detection
 source: [02-VERIFICATION.md]
 started: 2026-03-30T12:35:00Z
-updated: 2026-03-30T12:35:00Z
+updated: 2026-03-30T12:45:00Z
 ---
 
 ## Current Test
 
-[awaiting human testing]
+All flows verified by user.
 
 ## Tests
 
@@ -18,7 +18,7 @@ Run `npm run dev` and verify all flows below in the running Electron app.
 
 expected: All 14 behavioral flows pass in the live app
 
-result: [pending]
+result: verified
 
 **Flows to verify:**
 1. App opens — DuplicatesPage shows "No folder selected" empty state; Sidebar shows Protected Folders section
@@ -39,9 +39,9 @@ result: [pending]
 ## Summary
 
 total: 1
-passed: 0
+passed: 1
 issues: 0
-pending: 1
+pending: 0
 skipped: 0
 blocked: 0
 
