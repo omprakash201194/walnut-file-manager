@@ -9,7 +9,7 @@
 
 import { describe, it, expect, vi } from 'vitest'
 import { resolve, join } from 'path'
-import { walkDirectory, groupBySize, hashFile, groupByHash } from '../handlers/scan'
+import { walkDirectory, groupBySize, hashFile, groupByHash, canonicalBasename, groupByCanonicalName } from '../handlers/scan'
 import type { FileEntry } from '../../../shared/ipc-types'
 
 const FIXTURES_DIR = resolve(__dirname, 'fixtures')
@@ -154,5 +154,101 @@ describe('groupByHash', () => {
     const signal = new AbortController().signal
     const groups = await groupByHash(entries, signal, vi.fn())
     expect(groups.length).toBe(0)
+  })
+})
+
+// ─────────────────────────────────────────────────────────────
+// canonicalBasename
+// ─────────────────────────────────────────────────────────────
+describe('canonicalBasename', () => {
+  it('returns the filename lowercased when no copy suffix is present', () => {
+    expect(canonicalBasename('photo.jpg')).toBe('photo.jpg')
+    expect(canonicalBasename('Document.pdf')).toBe('document.pdf')
+  })
+
+  it('strips "- Copy" suffix (case-insensitive)', () => {
+    expect(canonicalBasename('photo - Copy.jpg')).toBe('photo.jpg')
+    expect(canonicalBasename('photo - copy.jpg')).toBe('photo.jpg')
+    expect(canonicalBasename('photo - COPY.jpg')).toBe('photo.jpg')
+  })
+
+  it('strips "- Copy (N)" numbered copy suffix', () => {
+    expect(canonicalBasename('photo - Copy (1).jpg')).toBe('photo.jpg')
+    expect(canonicalBasename('photo - Copy (2).jpg')).toBe('photo.jpg')
+    expect(canonicalBasename('photo - copy (10).jpg')).toBe('photo.jpg')
+  })
+
+  it('strips trailing "(N)" numbered suffix', () => {
+    expect(canonicalBasename('photo (1).jpg')).toBe('photo.jpg')
+    expect(canonicalBasename('photo (2).jpg')).toBe('photo.jpg')
+    expect(canonicalBasename('document (3).pdf')).toBe('document.pdf')
+  })
+
+  it('preserves the file extension', () => {
+    expect(canonicalBasename('report - Copy.pdf')).toBe('report.pdf')
+    expect(canonicalBasename('archive (1).zip')).toBe('archive.zip')
+  })
+
+  it('does not strip numbers that are part of the original filename', () => {
+    // "notes2" should stay "notes2", not be stripped
+    expect(canonicalBasename('notes2.txt')).toBe('notes2.txt')
+  })
+})
+
+// ─────────────────────────────────────────────────────────────
+// groupByCanonicalName
+// ─────────────────────────────────────────────────────────────
+describe('groupByCanonicalName', () => {
+  const makeEntry = (name: string, size = 100): FileEntry => ({
+    path: `/test/${name}`,
+    size,
+    mtime: Date.now(),
+    name
+  })
+
+  it('groups "photo.jpg" with "photo - Copy.jpg"', () => {
+    const files = [makeEntry('photo.jpg'), makeEntry('photo - Copy.jpg')]
+    const result = groupByCanonicalName(files)
+    expect(result.size).toBe(1)
+    const group = [...result.values()][0]
+    expect(group.length).toBe(2)
+    const names = group.map((f) => f.name)
+    expect(names).toContain('photo.jpg')
+    expect(names).toContain('photo - Copy.jpg')
+  })
+
+  it('groups "doc.pdf" with "doc (1).pdf" and "doc (2).pdf"', () => {
+    const files = [makeEntry('doc.pdf'), makeEntry('doc (1).pdf'), makeEntry('doc (2).pdf')]
+    const result = groupByCanonicalName(files)
+    expect(result.size).toBe(1)
+    const group = [...result.values()][0]
+    expect(group.length).toBe(3)
+  })
+
+  it('does not group files with different canonical names', () => {
+    const files = [makeEntry('photo.jpg'), makeEntry('vacation.jpg')]
+    const result = groupByCanonicalName(files)
+    // Both are singletons after canonical stripping — no groups returned
+    expect(result.size).toBe(0)
+  })
+
+  it('returns empty Map for empty input', () => {
+    const result = groupByCanonicalName([])
+    expect(result.size).toBe(0)
+  })
+
+  it('groups files with different sizes (Windows copy size drift)', () => {
+    // Simulate Windows copy where metadata changes slightly increase file size
+    const files = [makeEntry('photo.jpg', 1000), makeEntry('photo - Copy.jpg', 1002)]
+    const result = groupByCanonicalName(files)
+    expect(result.size).toBe(1)
+    const group = [...result.values()][0]
+    expect(group.length).toBe(2)
+  })
+
+  it('matches case-insensitively across filenames', () => {
+    const files = [makeEntry('Photo.jpg'), makeEntry('photo - Copy.jpg')]
+    const result = groupByCanonicalName(files)
+    expect(result.size).toBe(1)
   })
 })

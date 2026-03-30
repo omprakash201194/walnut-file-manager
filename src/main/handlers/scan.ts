@@ -104,6 +104,55 @@ export function groupBySize(files: FileEntry[]): Map<number, FileEntry[]> {
 }
 
 /**
+ * NAME-PATTERN: Strip Windows copy suffixes from a filename basename.
+ * Handles:
+ *   - "file - Copy.txt"         → "file"
+ *   - "file - Copy (2).txt"     → "file"
+ *   - "file (1).txt"            → "file"
+ *   - "file (2).txt"            → "file"
+ * Returns lowercased canonical name (with extension) for case-insensitive grouping.
+ */
+export function canonicalBasename(filename: string): string {
+  const ext = path.extname(filename)
+  let base = path.basename(filename, ext)
+
+  // Strip "- Copy (N)" and "- Copy" suffixes (case-insensitive, optional spaces)
+  base = base.replace(/\s*-\s*copy(\s*\(\d+\))?$/i, '')
+
+  // Strip trailing " (N)" numbered suffixes like "(1)", "(2)", etc.
+  base = base.replace(/\s*\(\d+\)$/, '')
+
+  return (base + ext).toLowerCase()
+}
+
+/**
+ * NAME-PATTERN: Group files by canonical basename; return only groups with 2+ files.
+ * This catches "file.txt" + "file - Copy.txt" + "file (1).txt" even when sizes differ.
+ */
+export function groupByCanonicalName(files: FileEntry[]): Map<string, FileEntry[]> {
+  const nameMap = new Map<string, FileEntry[]>()
+
+  for (const file of files) {
+    const canonical = canonicalBasename(file.name)
+    const existing = nameMap.get(canonical)
+    if (existing) {
+      existing.push(file)
+    } else {
+      nameMap.set(canonical, [file])
+    }
+  }
+
+  // Filter out singletons — only name-colliding candidates proceed to hashing
+  for (const [canonical, group] of nameMap) {
+    if (group.length < 2) {
+      nameMap.delete(canonical)
+    }
+  }
+
+  return nameMap
+}
+
+/**
  * DUPE-02: Stream SHA-256 hash via createReadStream — non-blocking, handles large files.
  * Wraps in try/catch — returns null on permission error or any I/O failure.
  */
@@ -202,12 +251,10 @@ export function registerScanHandlers(mainWindow: BrowserWindow): void {
         }
       })
 
-      // DUPE-01: Size pre-filter
+      // CONTENT DETECTION: Size pre-filter → hash to find true content duplicates
       const sizeGroups = groupBySize(files)
-      const candidates = [...sizeGroups.values()].flat()
-
-      // PASS 2: Hash candidates, stream progress
-      const duplicateGroups = await groupByHash(candidates, signal, (hashed, total, currentPath) => {
+      const sizeCandidates = [...sizeGroups.values()].flat()
+      const contentGroups = await groupByHash(sizeCandidates, signal, (hashed, total, currentPath) => {
         const progressEvent: ScanProgressEvent = {
           filesScanned: files.length,
           totalFiles: total,
@@ -218,8 +265,27 @@ export function registerScanHandlers(mainWindow: BrowserWindow): void {
         mainWindow.webContents.send(IPC_CHANNELS.SCAN_PROGRESS, progressEvent)
       })
 
+      // NAME-PATTERN DETECTION: Group by canonical name → hash each group regardless of size
+      // Catches "file - Copy.txt", "file (1).jpg", etc. even when sizes differ slightly
+      const nameGroups = groupByCanonicalName(files)
+      const nameCandidates = [...nameGroups.values()].flat()
+
+      // Deduplicate name candidates against already-hashed files to avoid double hashing
+      const alreadyHashedPaths = new Set(sizeCandidates.map((f) => f.path))
+      const newNameCandidates = nameCandidates.filter((f) => !alreadyHashedPaths.has(f.path))
+      const nameGroups2 = await groupByHash(newNameCandidates, signal, () => {})
+
+      // Merge name-based groups into content groups, deduplicating by hash
+      const seenHashes = new Set(contentGroups.map((g) => g.hash))
+      for (const group of nameGroups2) {
+        if (!seenHashes.has(group.hash)) {
+          contentGroups.push(group)
+          seenHashes.add(group.hash)
+        }
+      }
+
       // Push results via webContents.send — handle resolves void (NOT return value)
-      mainWindow.webContents.send(IPC_CHANNELS.SCAN_COMPLETE, duplicateGroups)
+      mainWindow.webContents.send(IPC_CHANNELS.SCAN_COMPLETE, contentGroups)
     } catch (err: unknown) {
       const isAbort = (err as { name?: string }).name === 'AbortError'
       if (!isAbort) {
