@@ -4,6 +4,7 @@ import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 import { IPC_CHANNELS } from '../../shared/ipc-types'
 import { registerScanHandlers } from './handlers/scan'
+import { registerOrganizerHandlers } from './handlers/organizer'
 
 function createWindow(): BrowserWindow {
   // Create the browser window.
@@ -75,6 +76,7 @@ app.whenReady().then(() => {
 
   const mainWindow = createWindow()
   registerScanHandlers(mainWindow)
+  registerOrganizerHandlers(mainWindow)
 
   app.on('activate', function () {
     // On macOS it's common to re-create a window in the app when the
