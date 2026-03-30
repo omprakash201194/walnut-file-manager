@@ -3,8 +3,9 @@ import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 import { IPC_CHANNELS } from '../../shared/ipc-types'
+import { registerScanHandlers } from './handlers/scan'
 
-function createWindow(): void {
+function createWindow(): BrowserWindow {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     width: 1100,
@@ -38,6 +39,8 @@ function createWindow(): void {
   } else {
     mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
   }
+
+  return mainWindow
 }
 
 // Register IPC handlers
@@ -70,7 +73,8 @@ app.whenReady().then(() => {
 
   registerIpcHandlers()
 
-  createWindow()
+  const mainWindow = createWindow()
+  registerScanHandlers(mainWindow)
 
   app.on('activate', function () {
     // On macOS it's common to re-create a window in the app when the
