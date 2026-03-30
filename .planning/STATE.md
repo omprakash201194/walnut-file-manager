@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 02-06-PLAN.md (Wire + E2E Verification with name-pattern detection fix)
-last_updated: "2026-03-30T09:44:46.810Z"
+stopped_at: Completed 03-01-PLAN.md
+last_updated: "2026-03-30T14:46:34.211Z"
 last_activity: 2026-03-30
 progress:
   total_phases: 4
   completed_phases: 2
-  total_plans: 8
-  completed_plans: 8
+  total_plans: 13
+  completed_plans: 9
   percent: 0
 ---
 
@@ -21,12 +21,12 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-29)
 
 **Core value:** A user can scan any folder, instantly see their duplicate files and clutter, and take action to clean them up -- with full confidence that nothing will be lost without their consent.
-**Current focus:** Phase 02 — duplicate-detection
+**Current focus:** Phase 03 — file-organization
 
 ## Current Position
 
-Phase: 3
-Plan: Not started
+Phase: 03 (file-organization) — EXECUTING
+Plan: 2 of 5
 Status: Ready to execute
 Last activity: 2026-03-30
 
@@ -59,6 +59,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 02-duplicate-detection P03 | 8 | 2 tasks | 3 files |
 | Phase 02-duplicate-detection P05 | 2min | 2 tasks | 3 files |
 | Phase 02-duplicate-detection P06 | 15min | 2 tasks | 3 files |
+| Phase 03-file-organization P01 | 3min | 3 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -83,6 +84,9 @@ Recent decisions affecting current work:
 - [Phase 02-duplicate-detection]: DeletePanel re-adds failed-deletion paths to selections so user can see which files could not be deleted
 - [Phase 02-duplicate-detection]: Name-pattern detection is additive — runs after content detection, results merged deduplicating by hash
 - [Phase 02-duplicate-detection]: groupByCanonicalName does not apply size pre-filter to catch Windows copy files with slight size drift
+- [Phase 03-file-organization]: shadcn CLI creates @/ as literal dir again (Phase 03 Plan 01) — same recovery: move file post-install, delete @/ directory
+- [Phase 03-file-organization]: getCategory() exported as pure function alongside ByTypeStrategy class for isolated testability
+- [Phase 03-file-organization]: ByExtensionStrategy uses 'no-extension' key for files without extensions per UI-SPEC
 
 ### Pending Todos
 
@@ -95,6 +99,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-30T06:35:12.192Z
-Stopped at: Completed 02-06-PLAN.md (Wire + E2E Verification with name-pattern detection fix)
+Last session: 2026-03-30T14:46:34.206Z
+Stopped at: Completed 03-01-PLAN.md
 Resume file: None

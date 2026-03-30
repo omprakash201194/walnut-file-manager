@@ -46,10 +46,10 @@ Requirements for initial release. Each maps to roadmap phases.
 ### File Organization (ORG)
 
 - [ ] **ORG-01**: App categorizes scanned files by type into: Documents, Photos, Music, Video, Archives, Other
-- [ ] **ORG-02**: User can select an organization strategy (v1 ships with "By Type" and "By Extension" strategies)
+- [x] **ORG-02**: User can select an organization strategy (v1 ships with "By Type" and "By Extension" strategies)
 - [ ] **ORG-03**: App generates and displays a dry-run preview of proposed file moves before executing
 - [ ] **ORG-04**: User can apply the reorganization — files are moved into type-based subdirectories within the target folder
-- [ ] **ORG-05**: Organization strategy is extensible — new strategies can be added in future versions without restructuring core logic
+- [x] **ORG-05**: Organization strategy is extensible — new strategies can be added in future versions without restructuring core logic
 
 ### Quality & Testing (QUALITY)
 
@@ -137,10 +137,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | SAFETY-04 | Phase 3 | Pending |
 | SAFETY-05 | Phase 3 | Pending |
 | ORG-01 | Phase 3 | Pending |
-| ORG-02 | Phase 3 | Pending |
+| ORG-02 | Phase 3 | Complete |
 | ORG-03 | Phase 3 | Pending |
 | ORG-04 | Phase 3 | Pending |
-| ORG-05 | Phase 3 | Pending |
+| ORG-05 | Phase 3 | Complete |
 | QUALITY-01 | Phase 4 | Pending |
 | QUALITY-02 | Phase 4 | Pending |
 | QUALITY-03 | Phase 4 | Pending |

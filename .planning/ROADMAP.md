@@ -98,10 +98,10 @@ Plans:
   3. User sees a dry-run preview showing a before/after directory tree of where files will be moved, before any files are touched
   4. User applies the reorganization and files are moved into type-based subdirectories within the target folder
   5. User can undo the last reorganization and all file moves are reversed to their original locations
-**Plans:** 5 plans
+**Plans:** 1/5 plans executed
 
 Plans:
-- [ ] 03-01-PLAN.md -- Install deps (electron-conf, shadcn Tabs); extend IPC types; create ByTypeStrategy and ByExtensionStrategy
+- [x] 03-01-PLAN.md -- Install deps (electron-conf, shadcn Tabs); extend IPC types; create ByTypeStrategy and ByExtensionStrategy
 - [ ] 03-02-PLAN.md -- Main process organizer handler: safeMove, ORG_PREVIEW, ORG_APPLY, ORG_UNDO, ORG_GET_STATE
 - [ ] 03-03-PLAN.md -- Extend Zustand store with organizer slice; extend preload bridge with org IPC methods
 - [ ] 03-04-PLAN.md -- Build OrganizerPage, PreviewAccordion, OrganizerActionBar full UI
@@ -160,5 +160,5 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4
 |-------|----------------|--------|-----------|
 | 1. App Shell & IPC Foundation | 2/2 | Complete   | 2026-03-29 |
 | 2. Duplicate Detection | 6/6 | Complete   | 2026-03-30 |
-| 3. File Organization | 0/5 | In progress | - |
+| 3. File Organization | 1/5 | In Progress|  |
 | 4. Quality & Distribution | 0/0 | Not started | - |
