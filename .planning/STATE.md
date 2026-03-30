@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 03-02-PLAN.md
-last_updated: "2026-03-30T14:51:45.265Z"
+stopped_at: Completed 03-04-PLAN.md
+last_updated: "2026-03-30T14:57:13.855Z"
 last_activity: 2026-03-30
 progress:
   total_phases: 4
   completed_phases: 2
   total_plans: 13
-  completed_plans: 11
+  completed_plans: 12
   percent: 0
 ---
 
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-03-29)
 ## Current Position
 
 Phase: 03 (file-organization) — EXECUTING
-Plan: 4 of 5
+Plan: 5 of 5
 Status: Ready to execute
 Last activity: 2026-03-30
 
@@ -62,6 +62,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 03-file-organization P01 | 3min | 3 tasks | 6 files |
 | Phase 03-file-organization P03 | 8min | 2 tasks | 2 files |
 | Phase 03-file-organization P02 | 10min | 1 tasks | 2 files |
+| Phase 03-file-organization P04 | 3min | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -94,6 +95,9 @@ Recent decisions affecting current work:
 - [Phase 03-file-organization]: safeMove/buildCategoryMap exported public from organizer.ts to enable unit testing without Electron IPC wiring
 - [Phase 03-file-organization]: lastApplyTimes stored as parallel array alongside undoStack in electron-conf for O(1) last-time lookup
 - [Phase 03-file-organization]: ORG_UNDO pops stack even on partial failure — partial undo surfaced as renderer error, not silent retry
+- [Phase 03-file-organization]: Relative path ../../../shared/ipc-types correct in PreviewAccordion (shared/ is at src/shared/ not project root)
+- [Phase 03-file-organization]: OrganizerPage uses @/ alias matching DuplicatesPage pattern for renderer-side imports
+- [Phase 03-file-organization]: Undo handler calls resetOrganizer() then re-applies undo state — avoids null type mismatch since setOrganizerPreview only accepts CategoryMap
 
 ### Pending Todos
 
@@ -106,6 +110,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-30T14:51:45.260Z
-Stopped at: Completed 03-02-PLAN.md
+Last session: 2026-03-30T14:57:13.851Z
+Stopped at: Completed 03-04-PLAN.md
 Resume file: None
