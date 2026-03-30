@@ -25,15 +25,15 @@ Requirements for initial release. Each maps to roadmap phases.
 
 - [x] **DUPE-01**: App pre-filters by file size — only files sharing an identical size proceed to hashing
 - [x] **DUPE-02**: App computes SHA-256 content hash for size-colliding files to confirm true duplicates
-- [ ] **DUPE-03**: Duplicate groups are displayed in a list: each group shows all copies with path, size, and modified date
-- [ ] **DUPE-04**: User sees a space savings summary: "X duplicates found — you can reclaim Y GB"
-- [ ] **DUPE-05**: User can select which file(s) to remove within each duplicate group using checkboxes, with "keep newest" / "keep oldest" quick-select presets
-- [ ] **DUPE-06**: User can mark specific folders as protected (reference folders) — files in protected folders are never auto-selected for deletion
+- [x] **DUPE-03**: Duplicate groups are displayed in a list: each group shows all copies with path, size, and modified date
+- [x] **DUPE-04**: User sees a space savings summary: "X duplicates found — you can reclaim Y GB"
+- [x] **DUPE-05**: User can select which file(s) to remove within each duplicate group using checkboxes, with "keep newest" / "keep oldest" quick-select presets
+- [x] **DUPE-06**: User can mark specific folders as protected (reference folders) — files in protected folders are never auto-selected for deletion
 
 ### Smart Selection (SELECT)
 
-- [ ] **SELECT-01**: User can apply a smart selection rule across all groups at once (keep newest, keep oldest, keep from preferred folder path)
-- [ ] **SELECT-02**: App enforces a keep-at-least-one constraint — it is impossible to queue all copies of a file for deletion
+- [x] **SELECT-01**: User can apply a smart selection rule across all groups at once (keep newest, keep oldest, keep from preferred folder path)
+- [x] **SELECT-02**: App enforces a keep-at-least-one constraint — it is impossible to queue all copies of a file for deletion
 
 ### File Safety (SAFETY)
 
@@ -125,12 +125,12 @@ Which phases cover which requirements. Updated during roadmap creation.
 | SCAN-04 | Phase 2 | Complete |
 | DUPE-01 | Phase 2 | Complete |
 | DUPE-02 | Phase 2 | Complete |
-| DUPE-03 | Phase 2 | Pending |
-| DUPE-04 | Phase 2 | Pending |
-| DUPE-05 | Phase 2 | Pending |
-| DUPE-06 | Phase 2 | Pending |
-| SELECT-01 | Phase 2 | Pending |
-| SELECT-02 | Phase 2 | Pending |
+| DUPE-03 | Phase 2 | Complete |
+| DUPE-04 | Phase 2 | Complete |
+| DUPE-05 | Phase 2 | Complete |
+| DUPE-06 | Phase 2 | Complete |
+| SELECT-01 | Phase 2 | Complete |
+| SELECT-02 | Phase 2 | Complete |
 | SAFETY-01 | Phase 2 | Pending |
 | SAFETY-02 | Phase 2 | Complete |
 | SAFETY-03 | Phase 2 | Pending |

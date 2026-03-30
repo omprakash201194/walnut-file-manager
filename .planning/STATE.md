@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 02-02-PLAN.md
-last_updated: "2026-03-30T06:02:01.220Z"
+stopped_at: Completed 02-02 and 02-03 PLAN.md (Wave 2 complete)
+last_updated: "2026-03-30T06:05:00.000Z"
 last_activity: 2026-03-30
 progress:
   total_phases: 4
@@ -56,6 +56,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 01-app-shell-ipc-foundation P02 | 35min | 2 tasks | 5 files |
 | Phase 02-duplicate-detection P01 | 2min | 2 tasks | 5 files |
 | Phase 02-duplicate-detection P02 | 12 | 1 tasks | 7 files |
+| Phase 02-duplicate-detection P03 | 8 | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -75,6 +76,8 @@ Recent decisions affecting current work:
 - [Phase 02-duplicate-detection]: onScanProgress/onScanComplete/onScanError return cleanup functions to enable safe useEffect teardown in renderer
 - [Phase 02-duplicate-detection]: AbortController stored at module level so SCAN_CANCEL handler can reach it across separate ipcMain.handle calls
 - [Phase 02-duplicate-detection]: SCAN_COMPLETE results delivered via webContents.send not ipcMain.handle return value — avoids IPC message size limits
+- [Phase 02-duplicate-detection]: Push-event listeners return cleanup functions to enable safe useEffect teardown and prevent StrictMode listener accumulation
+- [Phase 02-duplicate-detection]: applyPreset is a named pure function export (not in store) for testability — called from click handlers, result passed to setSelections
 
 ### Pending Todos
 
@@ -87,6 +90,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-30T06:02:01.213Z
-Stopped at: Completed 02-02-PLAN.md
+Last session: 2026-03-30T06:05:00.000Z
+Stopped at: Wave 2 complete — 02-02 and 02-03 done
 Resume file: None
