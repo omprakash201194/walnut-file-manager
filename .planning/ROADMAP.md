@@ -105,7 +105,7 @@ Plans:
 - [x] 03-02-PLAN.md -- Main process organizer handler: safeMove, ORG_PREVIEW, ORG_APPLY, ORG_UNDO, ORG_GET_STATE
 - [x] 03-03-PLAN.md -- Extend Zustand store with organizer slice; extend preload bridge with org IPC methods
 - [x] 03-04-PLAN.md -- Build OrganizerPage, PreviewAccordion, OrganizerActionBar full UI
-- [ ] 03-05-PLAN.md -- Wire registerOrganizerHandlers + human end-to-end verification
+- [x] 03-05-PLAN.md -- Wire registerOrganizerHandlers + human end-to-end verification
 **UI hint**: yes
 
 **UAT criteria:**
