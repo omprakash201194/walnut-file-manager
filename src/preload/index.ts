@@ -1,5 +1,5 @@
 import { contextBridge, ipcRenderer } from 'electron'
-import { IPC_CHANNELS, ScanProgressEvent, DuplicateGroup, DeleteResult } from '../../shared/ipc-types'
+import { IPC_CHANNELS, ScanProgressEvent, DuplicateGroup, DeleteResult, OrgPreviewRequest, OrgApplyRequest, CategoryMap, OrgApplyResult, OrgUndoResult, OrgStateResult } from '../../shared/ipc-types'
 
 contextBridge.exposeInMainWorld('api', {
   selectDirectory: (): Promise<string | null> =>
@@ -32,5 +32,17 @@ contextBridge.exposeInMainWorld('api', {
     const handler = (_: Electron.IpcRendererEvent, data: string) => callback(data)
     ipcRenderer.on(IPC_CHANNELS.SCAN_ERROR, handler)
     return () => ipcRenderer.off(IPC_CHANNELS.SCAN_ERROR, handler)
-  }
+  },
+
+  orgPreview: (req: OrgPreviewRequest): Promise<CategoryMap> =>
+    ipcRenderer.invoke(IPC_CHANNELS.ORG_PREVIEW, req),
+
+  orgApply: (req: OrgApplyRequest): Promise<OrgApplyResult> =>
+    ipcRenderer.invoke(IPC_CHANNELS.ORG_APPLY, req),
+
+  orgUndo: (): Promise<OrgUndoResult> =>
+    ipcRenderer.invoke(IPC_CHANNELS.ORG_UNDO),
+
+  orgGetState: (): Promise<OrgStateResult> =>
+    ipcRenderer.invoke(IPC_CHANNELS.ORG_GET_STATE),
 })
