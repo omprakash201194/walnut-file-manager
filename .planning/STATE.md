@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 02-05-PLAN.md (Wave 3 DeletePanel + Sidebar Protected Folders)
-last_updated: "2026-03-30T06:08:52.146Z"
+stopped_at: Completed 02-06-PLAN.md (Wire + E2E Verification with name-pattern detection fix)
+last_updated: "2026-03-30T06:35:12.197Z"
 last_activity: 2026-03-30
 progress:
   total_phases: 4
-  completed_phases: 1
+  completed_phases: 2
   total_plans: 8
-  completed_plans: 6
+  completed_plans: 8
   percent: 0
 ---
 
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-03-29)
 ## Current Position
 
 Phase: 02 (duplicate-detection) — EXECUTING
-Plan: 4 of 6
+Plan: 5 of 6
 Status: Ready to execute
 Last activity: 2026-03-30
 
@@ -58,6 +58,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 02-duplicate-detection P02 | 12 | 1 tasks | 7 files |
 | Phase 02-duplicate-detection P03 | 8 | 2 tasks | 3 files |
 | Phase 02-duplicate-detection P05 | 2min | 2 tasks | 3 files |
+| Phase 02-duplicate-detection P06 | 15min | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -80,6 +81,8 @@ Recent decisions affecting current work:
 - [Phase 02-duplicate-detection]: Push-event listeners return cleanup functions to enable safe useEffect teardown and prevent StrictMode listener accumulation
 - [Phase 02-duplicate-detection]: applyPreset is a named pure function export (not in store) for testability — called from click handlers, result passed to setSelections
 - [Phase 02-duplicate-detection]: DeletePanel re-adds failed-deletion paths to selections so user can see which files could not be deleted
+- [Phase 02-duplicate-detection]: Name-pattern detection is additive — runs after content detection, results merged deduplicating by hash
+- [Phase 02-duplicate-detection]: groupByCanonicalName does not apply size pre-filter to catch Windows copy files with slight size drift
 
 ### Pending Todos
 
@@ -92,6 +95,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-30T06:08:52.140Z
-Stopped at: Completed 02-05-PLAN.md (Wave 3 DeletePanel + Sidebar Protected Folders)
+Last session: 2026-03-30T06:35:12.192Z
+Stopped at: Completed 02-06-PLAN.md (Wire + E2E Verification with name-pattern detection fix)
 Resume file: None
