@@ -66,6 +66,7 @@ export async function walkDirectory(
           path: fullPath,
           size: stat.size,
           mtime: stat.mtimeMs,
+          birthtime: stat.birthtimeMs,
           name: dirent.name
         }
         results.push(entry)

@@ -73,6 +73,7 @@ describe('groupBySize', () => {
       path: `/test/${name}`,
       size,
       mtime: Date.now(),
+      birthtime: Date.now(),
       name
     })
 
@@ -129,9 +130,9 @@ describe('groupByHash', () => {
     const fileSize = 12 // "hello world\n" is 12 bytes on Unix
 
     const entries: FileEntry[] = [
-      { path: join(FIXTURES_DIR, 'file-a.txt'), size: fileSize, mtime: Date.now(), name: 'file-a.txt' },
-      { path: join(FIXTURES_DIR, 'file-b.txt'), size: fileSize, mtime: Date.now(), name: 'file-b.txt' },
-      { path: join(FIXTURES_DIR, 'file-c.txt'), size: 23, mtime: Date.now(), name: 'file-c.txt' }
+      { path: join(FIXTURES_DIR, 'file-a.txt'), size: fileSize, mtime: Date.now(), birthtime: Date.now(), name: 'file-a.txt' },
+      { path: join(FIXTURES_DIR, 'file-b.txt'), size: fileSize, mtime: Date.now(), birthtime: Date.now(), name: 'file-b.txt' },
+      { path: join(FIXTURES_DIR, 'file-c.txt'), size: 23, mtime: Date.now(), birthtime: Date.now(), name: 'file-c.txt' }
     ]
 
     const signal = new AbortController().signal
@@ -148,8 +149,8 @@ describe('groupByHash', () => {
 
   it('returns empty array when no duplicates found', async () => {
     const entries: FileEntry[] = [
-      { path: join(FIXTURES_DIR, 'file-a.txt'), size: 12, mtime: Date.now(), name: 'file-a.txt' },
-      { path: join(FIXTURES_DIR, 'file-c.txt'), size: 23, mtime: Date.now(), name: 'file-c.txt' }
+      { path: join(FIXTURES_DIR, 'file-a.txt'), size: 12, mtime: Date.now(), birthtime: Date.now(), name: 'file-a.txt' },
+      { path: join(FIXTURES_DIR, 'file-c.txt'), size: 23, mtime: Date.now(), birthtime: Date.now(), name: 'file-c.txt' }
     ]
     const signal = new AbortController().signal
     const groups = await groupByHash(entries, signal, vi.fn())
@@ -203,6 +204,7 @@ describe('groupByCanonicalName', () => {
     path: `/test/${name}`,
     size,
     mtime: Date.now(),
+    birthtime: Date.now(),
     name
   })
 
@@ -250,5 +252,61 @@ describe('groupByCanonicalName', () => {
     const files = [makeEntry('Photo.jpg'), makeEntry('photo - Copy.jpg')]
     const result = groupByCanonicalName(files)
     expect(result.size).toBe(1)
+  })
+})
+
+// ─────────────────────────────────────────────────────────────
+// applyPreset birthtime tiebreaker
+// ─────────────────────────────────────────────────────────────
+describe('applyPreset birthtime tiebreaker', () => {
+  // Inline sort logic mirrors appStore.applyPreset to verify the tiebreaker contract.
+  // Both files have identical mtime — birthtime must determine the keeper.
+  const now = Date.now()
+
+  const makeFile = (name: string, mtime: number, birthtime: number): FileEntry => ({
+    path: `/test/${name}`,
+    size: 100,
+    mtime,
+    birthtime,
+    name
+  })
+
+  function sortByPreset(files: FileEntry[], preset: 'newest' | 'oldest'): FileEntry[] {
+    return [...files].sort((a, b) => {
+      const mtimeDiff = preset === 'newest' ? b.mtime - a.mtime : a.mtime - b.mtime
+      if (mtimeDiff !== 0) return mtimeDiff
+      return preset === 'newest' ? b.birthtime - a.birthtime : a.birthtime - b.birthtime
+    })
+  }
+
+  it('keeps the newer birthtime as keeper when mtime is equal (newest preset)', () => {
+    const older = makeFile('original.txt', now, now - 5000) // created earlier
+    const newer = makeFile('copy.txt',     now, now - 1000) // created later
+
+    const sorted = sortByPreset([older, newer], 'newest')
+    // sorted[0] is the keeper — should be newer (created later)
+    expect(sorted[0].name).toBe('copy.txt')
+    expect(sorted[1].name).toBe('original.txt')
+  })
+
+  it('keeps the older birthtime as keeper when mtime is equal (oldest preset)', () => {
+    const older = makeFile('original.txt', now, now - 5000)
+    const newer = makeFile('copy.txt',     now, now - 1000)
+
+    const sorted = sortByPreset([older, newer], 'oldest')
+    // sorted[0] is the keeper — should be older (created earlier)
+    expect(sorted[0].name).toBe('original.txt')
+    expect(sorted[1].name).toBe('copy.txt')
+  })
+
+  it('keeps newest and oldest consistently different when mtime equal', () => {
+    const f1 = makeFile('a.txt', now, now - 3000)
+    const f2 = makeFile('b.txt', now, now - 1000)
+
+    const keeperNewest = sortByPreset([f1, f2], 'newest')[0]
+    const keeperOldest = sortByPreset([f1, f2], 'oldest')[0]
+
+    // The two presets should pick different keepers
+    expect(keeperNewest.name).not.toBe(keeperOldest.name)
   })
 })

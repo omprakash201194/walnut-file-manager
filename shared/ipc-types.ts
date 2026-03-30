@@ -23,7 +23,8 @@ export interface ScanProgressEvent {
 export interface FileEntry {
   path: string
   size: number
-  mtime: number // millisecond timestamp
+  mtime: number     // millisecond timestamp — last modified
+  birthtime: number // millisecond timestamp — created (used as tiebreaker when mtime equal)
   name: string
 }
 

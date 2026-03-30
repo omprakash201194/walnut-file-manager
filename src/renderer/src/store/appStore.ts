@@ -16,9 +16,12 @@ export function applyPreset(
   const selected = new Set<string>()
 
   for (const group of groups) {
-    const sorted = [...group.files].sort((a, b) =>
-      preset === 'newest' ? b.mtime - a.mtime : a.mtime - b.mtime
-    )
+    const sorted = [...group.files].sort((a, b) => {
+      const mtimeDiff = preset === 'newest' ? b.mtime - a.mtime : a.mtime - b.mtime
+      if (mtimeDiff !== 0) return mtimeDiff
+      // Tiebreaker: use birthtime (creation time) when mtime is identical
+      return preset === 'newest' ? b.birthtime - a.birthtime : a.birthtime - b.birthtime
+    })
     // sorted[0] is the keeper — never selected (SELECT-02)
     const candidates = sorted.slice(1)
 
