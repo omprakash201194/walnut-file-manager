@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 02-01-PLAN.md
-last_updated: "2026-03-30T05:56:22.057Z"
+stopped_at: Completed 02-02-PLAN.md
+last_updated: "2026-03-30T06:02:01.220Z"
 last_activity: 2026-03-30
 progress:
   total_phases: 4
   completed_phases: 1
   total_plans: 8
-  completed_plans: 3
+  completed_plans: 5
   percent: 0
 ---
 
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-03-29)
 ## Current Position
 
 Phase: 02 (duplicate-detection) — EXECUTING
-Plan: 2 of 6
+Plan: 3 of 6
 Status: Ready to execute
 Last activity: 2026-03-30
 
@@ -55,6 +55,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 01-app-shell-ipc-foundation P01 | 8min | 2 tasks | 18 files |
 | Phase 01-app-shell-ipc-foundation P02 | 35min | 2 tasks | 5 files |
 | Phase 02-duplicate-detection P01 | 2min | 2 tasks | 5 files |
+| Phase 02-duplicate-detection P02 | 12 | 1 tasks | 7 files |
 
 ## Accumulated Context
 
@@ -72,6 +73,8 @@ Recent decisions affecting current work:
 - [Phase 01-app-shell-ipc-foundation]: Local isPickerOpen state disables Choose Folder button during IPC call — prevents duplicate OS dialogs
 - [Phase 02-duplicate-detection]: shadcn CLI creates @/ as literal dir again — confirmed same recovery: move components post-install and delete @/ directory
 - [Phase 02-duplicate-detection]: onScanProgress/onScanComplete/onScanError return cleanup functions to enable safe useEffect teardown in renderer
+- [Phase 02-duplicate-detection]: AbortController stored at module level so SCAN_CANCEL handler can reach it across separate ipcMain.handle calls
+- [Phase 02-duplicate-detection]: SCAN_COMPLETE results delivered via webContents.send not ipcMain.handle return value — avoids IPC message size limits
 
 ### Pending Todos
 
@@ -84,6 +87,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-30T05:56:22.048Z
-Stopped at: Completed 02-01-PLAN.md
+Last session: 2026-03-30T06:02:01.213Z
+Stopped at: Completed 02-02-PLAN.md
 Resume file: None
