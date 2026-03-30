@@ -1,8 +1,17 @@
 import { create } from 'zustand'
-import { DuplicateGroup, ScanProgressEvent } from '../../../shared/ipc-types'
+import { DuplicateGroup, ScanProgressEvent, CategoryMap } from '../../../shared/ipc-types'
 import * as nodePath from 'path'
 
 export type ScanStatus = 'idle' | 'scanning' | 'complete' | 'error' | 'cancelled'
+
+export type OrganizerStatus =
+  | 'no-scan'     // No scan results in store
+  | 'idle'        // Scan results exist, no preview generated
+  | 'previewing'  // Preview IPC call in flight
+  | 'ready'       // Preview returned, Apply enabled
+  | 'applying'    // Apply IPC call in flight
+  | 'done'        // Apply complete, Undo visible
+  | 'error'       // Move failure during apply
 
 // Pure function — SELECT-01 + SELECT-02 + DUPE-06
 // preset: 'newest' keeps the file with the highest mtime; 'oldest' keeps the lowest
@@ -60,6 +69,23 @@ interface AppState {
   addProtectedFolder: (folder: string) => void
   removeProtectedFolder: (folder: string) => void
   resetScan: () => void
+
+  // Organizer state (D-03 / D-04 / D-05 / D-06)
+  organizerStatus: OrganizerStatus
+  organizerPreview: CategoryMap | null
+  organizerError: string | null
+  organizerUndoAvailable: boolean
+  organizerLastApplyTime: number | null      // ms timestamp for Undo button label
+  activeStrategy: 'by-type' | 'by-extension'
+
+  // Organizer actions
+  setOrganizerStatus: (s: OrganizerStatus) => void
+  setOrganizerPreview: (preview: CategoryMap) => void
+  setOrganizerError: (msg: string | null) => void
+  setOrganizerUndoAvailable: (available: boolean) => void
+  setOrganizerLastApplyTime: (time: number | null) => void
+  setActiveStrategy: (s: 'by-type' | 'by-extension') => void
+  resetOrganizer: () => void
 }
 
 export const useAppStore = create<AppState>()((set) => ({
@@ -112,5 +138,30 @@ export const useAppStore = create<AppState>()((set) => ({
       duplicateGroups: [],
       selections: new Set<string>(),
       scanError: null
-    })
+    }),
+
+  // Organizer initial state
+  organizerStatus: 'no-scan' as OrganizerStatus,
+  organizerPreview: null,
+  organizerError: null,
+  organizerUndoAvailable: false,
+  organizerLastApplyTime: null,
+  activeStrategy: 'by-type' as 'by-type' | 'by-extension',
+
+  // Organizer actions
+  setOrganizerStatus: (s) => set({ organizerStatus: s }),
+  setOrganizerPreview: (preview) => set({ organizerPreview: preview }),
+  setOrganizerError: (msg) => set({ organizerError: msg }),
+  setOrganizerUndoAvailable: (available) => set({ organizerUndoAvailable: available }),
+  setOrganizerLastApplyTime: (time) => set({ organizerLastApplyTime: time }),
+  setActiveStrategy: (s) => set({ activeStrategy: s }),
+  resetOrganizer: () =>
+    set({
+      organizerStatus: 'no-scan',
+      organizerPreview: null,
+      organizerError: null,
+      organizerUndoAvailable: false,
+      organizerLastApplyTime: null,
+      activeStrategy: 'by-type',
+    }),
 }))
