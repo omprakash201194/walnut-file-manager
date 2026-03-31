@@ -9,6 +9,13 @@
 
 import { describe, it, expect, vi } from 'vitest'
 import { resolve, join } from 'path'
+
+// Mock scanHistory to avoid electron-conf/electron dependency in unit tests
+vi.mock('../handlers/scanHistory', () => ({
+  addToScanHistory: vi.fn(() => []),
+  getScanHistory: vi.fn(() => []),
+}))
+
 import { walkDirectory, groupBySize, hashFile, groupByHash, canonicalBasename, groupByCanonicalName } from '../handlers/scan'
 import { getCategory, ByTypeStrategy } from '../strategies/byType'
 import { ByExtensionStrategy } from '../strategies/byExtension'
