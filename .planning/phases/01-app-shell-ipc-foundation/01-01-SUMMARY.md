@@ -180,3 +180,16 @@ None - no external service configuration required.
 ---
 *Phase: 01-app-shell-ipc-foundation*
 *Completed: 2026-03-29*
+
+## Self-Check: PASSED
+
+- FOUND: shared/ipc-types.ts
+- FOUND: src/renderer/src/store/appStore.ts
+- FOUND: src/renderer/src/lib/utils.ts
+- FOUND: src/renderer/src/assets/main.css
+- FOUND: src/renderer/src/components/ui/button.tsx
+- FOUND: components.json
+- FOUND: vitest.config.ts
+- FOUND: playwright.config.ts
+- FOUND: .planning/phases/01-app-shell-ipc-foundation/01-01-SUMMARY.md
+- Commits 66ea249, 6b32573, 753b4dd verified in git log

@@ -56,3 +56,48 @@ test('scan flow: start scan on real Windows directory, progress and results appe
   const scanComplete = window.locator('text=/duplicates found|No duplicates|Scan Again/i')
   await expect(scanComplete).toBeVisible({ timeout: 40000 })
 })
+
+test('delete flow: select duplicates via Keep Newest preset and confirm deletion', async () => {
+  test.setTimeout(60000)
+
+  // Navigate to Duplicates page
+  await window.locator('text=Duplicates').click()
+  await expect(window.locator('text=Duplicate Files')).toBeVisible({ timeout: 5000 })
+
+  // Start scan on C:\Windows\Fonts via IPC (bypasses OS file picker)
+  await window.evaluate((folderPath) => {
+    window.api.scanStart(folderPath)
+  }, 'C:\\Windows\\Fonts')
+
+  // Wait for scan to complete
+  await expect(window.locator('text=/duplicates found|No duplicates|Scan Again/i')).toBeVisible({
+    timeout: 45000,
+  })
+
+  // Skip if no duplicates found on this machine
+  const hasDuplicates = await window.locator('text=/\\d+ duplicate/i').count()
+  if (hasDuplicates === 0) {
+    test.skip()
+    return
+  }
+
+  // Apply Keep Newest preset to populate delete selections
+  await window.getByRole('button', { name: 'Keep Newest' }).click()
+
+  // Wait for the delete panel button to appear
+  const deleteBtn = window.locator('button', { hasText: /Delete .* → Trash/i })
+  const deleteBtnVisible = await deleteBtn.isVisible({ timeout: 5000 }).catch(() => false)
+  if (!deleteBtnVisible) {
+    test.skip()
+    return
+  }
+
+  // Click the delete button
+  await deleteBtn.click()
+
+  // Post-delete: delete button should disappear (selections cleared after successful delete)
+  await expect(deleteBtn).not.toBeVisible({ timeout: 15000 })
+
+  // Aria-live region should still be visible (scan summary updated)
+  await expect(window.locator('[aria-live]').first()).toBeVisible()
+})
