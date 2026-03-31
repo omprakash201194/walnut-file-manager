@@ -132,7 +132,14 @@ Plans:
   3. E2e tests cover the critical user flows (scan, duplicate review, delete, organize, undo) and pass via Playwright for Electron
   4. All tests run automatically on every commit via GitHub Actions CI, and failures block the build
   5. User can download a Windows NSIS installer from GitHub Releases, install the app, and see the version number displayed in the UI
-**Plans**: TBD
+**Plans:** 5 plans
+
+Plans:
+- [ ] 04-01-PLAN.md -- Package rename (walnut-temp → walnut), add npm test script, fill unit test gaps (getCategory, ByTypeStrategy, ByExtensionStrategy, applyPreset), fix electron-builder.yml placeholders
+- [ ] 04-02-PLAN.md -- Integration tests: scan pipeline + organizer safeMove against real temp filesystem
+- [ ] 04-03-PLAN.md -- Scan history IPC + electron-conf handler + Zustand store + Sidebar Recent section; version IPC + sidebar footer
+- [ ] 04-04-PLAN.md -- Playwright e2e: update playwright.config.ts + write app.spec.ts and organize.spec.ts
+- [ ] 04-05-PLAN.md -- GitHub Actions CI workflow (push/PR) + release workflow (v* tags, NSIS installer, GitHub Releases)
 
 **UAT criteria:**
 - Scan several folders, close and reopen app -- scan history shows previously scanned folders
@@ -161,4 +168,4 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4
 | 1. App Shell & IPC Foundation | 2/2 | Complete   | 2026-03-29 |
 | 2. Duplicate Detection | 6/6 | Complete   | 2026-03-30 |
 | 3. File Organization | 4/5 | In Progress|  |
-| 4. Quality & Distribution | 0/0 | Not started | - |
+| 4. Quality & Distribution | 0/5 | Not started | - |
