@@ -54,7 +54,7 @@ Requirements for initial release. Each maps to roadmap phases.
 ### Quality & Testing (QUALITY)
 
 - [ ] **QUALITY-01**: Unit tests cover all pure logic (hash computation, size grouping, type categorization, strategy pattern) via Vitest
-- [ ] **QUALITY-02**: Integration tests cover IPC handlers and file operations against a real temp filesystem (not mocked)
+- [x] **QUALITY-02**: Integration tests cover IPC handlers and file operations against a real temp filesystem (not mocked)
 - [ ] **QUALITY-03**: E2e tests cover critical user flows (scan, duplicate review, delete, organize, undo) via Playwright for Electron
 - [ ] **QUALITY-04**: All tests run in CI on each commit via GitHub Actions
 
@@ -142,7 +142,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | ORG-04 | Phase 3 | Complete |
 | ORG-05 | Phase 3 | Complete |
 | QUALITY-01 | Phase 4 | Pending |
-| QUALITY-02 | Phase 4 | Pending |
+| QUALITY-02 | Phase 4 | Complete |
 | QUALITY-03 | Phase 4 | Pending |
 | QUALITY-04 | Phase 4 | Pending |
 | DIST-01 | Phase 4 | Pending |
