@@ -53,16 +53,16 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Quality & Testing (QUALITY)
 
-- [ ] **QUALITY-01**: Unit tests cover all pure logic (hash computation, size grouping, type categorization, strategy pattern) via Vitest
+- [x] **QUALITY-01**: Unit tests cover all pure logic (hash computation, size grouping, type categorization, strategy pattern) via Vitest
 - [x] **QUALITY-02**: Integration tests cover IPC handlers and file operations against a real temp filesystem (not mocked)
 - [ ] **QUALITY-03**: E2e tests cover critical user flows (scan, duplicate review, delete, organize, undo) via Playwright for Electron
 - [ ] **QUALITY-04**: All tests run in CI on each commit via GitHub Actions
 
 ### Distribution (DIST)
 
-- [ ] **DIST-01**: App builds to a Windows NSIS installer via electron-builder
+- [x] **DIST-01**: App builds to a Windows NSIS installer via electron-builder
 - [ ] **DIST-02**: Release artifacts are produced on GitHub Actions and attached to GitHub Releases
-- [ ] **DIST-03**: App version is displayed in the UI (About section or window title bar)
+- [x] **DIST-03**: App version is displayed in the UI (About section or window title bar)
 
 ---
 
@@ -141,13 +141,13 @@ Which phases cover which requirements. Updated during roadmap creation.
 | ORG-03 | Phase 3 | Complete |
 | ORG-04 | Phase 3 | Complete |
 | ORG-05 | Phase 3 | Complete |
-| QUALITY-01 | Phase 4 | Pending |
+| QUALITY-01 | Phase 4 | Complete |
 | QUALITY-02 | Phase 4 | Complete |
 | QUALITY-03 | Phase 4 | Pending |
 | QUALITY-04 | Phase 4 | Pending |
-| DIST-01 | Phase 4 | Pending |
+| DIST-01 | Phase 4 | Complete |
 | DIST-02 | Phase 4 | Pending |
-| DIST-03 | Phase 4 | Pending |
+| DIST-03 | Phase 4 | Complete |
 
 **Coverage:**
 - v1 requirements: 33 total
