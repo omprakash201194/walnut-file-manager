@@ -78,6 +78,10 @@ interface AppState {
   organizerLastApplyTime: number | null      // ms timestamp for Undo button label
   activeStrategy: 'by-type' | 'by-extension'
 
+  // Scan history (SHELL-04)
+  scanHistory: string[]
+  setScanHistory: (history: string[]) => void
+
   // Organizer actions
   setOrganizerStatus: (s: OrganizerStatus) => void
   setOrganizerPreview: (preview: CategoryMap) => void
@@ -164,4 +168,8 @@ export const useAppStore = create<AppState>()((set) => ({
       organizerLastApplyTime: null,
       activeStrategy: 'by-type',
     }),
+
+  // Scan history initial state
+  scanHistory: [],
+  setScanHistory: (history) => set({ scanHistory: history }),
 }))

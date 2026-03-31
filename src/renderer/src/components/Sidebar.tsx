@@ -1,6 +1,6 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { NavLink } from 'react-router'
-import { Files, FolderTree, ShieldCheck, X } from 'lucide-react'
+import { Files, FolderTree, History, ShieldCheck, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { ScrollArea } from '@/components/ui/scroll-area'
@@ -9,11 +9,33 @@ import { cn } from '@/lib/utils'
 
 function Sidebar() {
   const [isPickerOpen, setIsPickerOpen] = useState(false)
+  const [version, setVersion] = useState<string>('')
   const selectedFolder = useAppStore((s) => s.selectedFolder)
   const setSelectedFolder = useAppStore((s) => s.setSelectedFolder)
   const protectedFolders = useAppStore((s) => s.protectedFolders)
   const addProtectedFolder = useAppStore((s) => s.addProtectedFolder)
   const removeProtectedFolder = useAppStore((s) => s.removeProtectedFolder)
+  const scanHistory = useAppStore((s) => s.scanHistory)
+  const setScanHistory = useAppStore((s) => s.setScanHistory)
+  const resetScan = useAppStore((s) => s.resetScan)
+
+  // Load app version on mount
+  useEffect(() => {
+    window.api.getAppVersion().then(setVersion)
+  }, [])
+
+  // Load scan history on mount + listen for push updates
+  useEffect(() => {
+    window.api.getScanHistory().then(setScanHistory)
+    const unsubscribe = window.api.onScanHistoryUpdated(setScanHistory)
+    return unsubscribe
+  }, [setScanHistory])
+
+  const handleHistoryClick = (folder: string) => {
+    setSelectedFolder(folder)
+    resetScan()
+    window.api.scanStart(folder)
+  }
 
   const handleChooseFolder = async () => {
     setIsPickerOpen(true)
@@ -144,6 +166,37 @@ function Sidebar() {
           </div>
         )}
       </div>
+
+      {/* Section E: Recent Scans (SHELL-04) */}
+      {scanHistory.length > 0 && (
+        <div className="px-4 pb-4">
+          <Separator className="mb-4" />
+          <p className="text-xs text-muted-foreground mb-2 flex items-center gap-1">
+            <History className="size-3 shrink-0" />
+            Recent
+          </p>
+          <div className="flex flex-col gap-1">
+            {scanHistory.map((folder) => (
+              <button
+                key={folder}
+                onClick={() => handleHistoryClick(folder)}
+                className="text-xs text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800 rounded px-2 py-1 text-left truncate w-full transition-colors"
+                style={{ direction: 'rtl', textAlign: 'left' }}
+                title={folder}
+              >
+                {folder}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Footer: version (DIST-03) */}
+      {version && (
+        <div className="px-4 pb-3">
+          <p className="text-xs text-muted-foreground">Walnut v{version}</p>
+        </div>
+      )}
     </div>
   )
 }
