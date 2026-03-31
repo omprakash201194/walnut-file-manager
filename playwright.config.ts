@@ -1,0 +1,10 @@
+import { defineConfig } from '@playwright/test'
+
+export default defineConfig({
+  testDir: './e2e',
+  timeout: 60000,
+  use: {
+    trace: 'on-first-retry',
+  },
+  reporter: [['list'], ['html', { outputFolder: 'playwright-report', open: 'never' }]],
+})
