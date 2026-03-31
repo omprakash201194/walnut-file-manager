@@ -12,6 +12,9 @@ export const IPC_CHANNELS = {
   ORG_APPLY: 'org:apply',
   ORG_UNDO: 'org:undo',
   ORG_GET_STATE: 'org:get-state',
+  APP_GET_VERSION: 'app:get-version',
+  SCAN_HISTORY_GET: 'scan-history:get',
+  SCAN_HISTORY_UPDATED: 'scan-history:updated',
 } as const
 
 // --- Scan pipeline types ---
@@ -56,6 +59,9 @@ export interface IpcApi {
   orgApply: (req: OrgApplyRequest) => Promise<OrgApplyResult>
   orgUndo: () => Promise<OrgUndoResult>
   orgGetState: () => Promise<OrgStateResult>
+  getAppVersion: () => Promise<string>
+  getScanHistory: () => Promise<string[]>
+  onScanHistoryUpdated: (cb: (history: string[]) => void) => () => void
 }
 
 // Augment Window type so renderer code gets type-safe access

@@ -45,4 +45,16 @@ contextBridge.exposeInMainWorld('api', {
 
   orgGetState: (): Promise<OrgStateResult> =>
     ipcRenderer.invoke(IPC_CHANNELS.ORG_GET_STATE),
+
+  getAppVersion: (): Promise<string> =>
+    ipcRenderer.invoke(IPC_CHANNELS.APP_GET_VERSION),
+
+  getScanHistory: (): Promise<string[]> =>
+    ipcRenderer.invoke(IPC_CHANNELS.SCAN_HISTORY_GET),
+
+  onScanHistoryUpdated: (callback: (history: string[]) => void): (() => void) => {
+    const handler = (_: Electron.IpcRendererEvent, data: string[]) => callback(data)
+    ipcRenderer.on(IPC_CHANNELS.SCAN_HISTORY_UPDATED, handler)
+    return () => ipcRenderer.off(IPC_CHANNELS.SCAN_HISTORY_UPDATED, handler)
+  },
 })

@@ -9,6 +9,7 @@ import {
   ScanProgressEvent,
   DeleteResult
 } from '../../../shared/ipc-types'
+import { addToScanHistory } from './scanHistory'
 
 // Module-level controller — allows SCAN_CANCEL to abort an in-progress scan
 let scanController: AbortController | null = null
@@ -229,6 +230,10 @@ export async function groupByHash(
  */
 export function registerScanHandlers(mainWindow: BrowserWindow): void {
   ipcMain.handle(IPC_CHANNELS.SCAN_START, async (_, folderPath: string) => {
+    // Record folder in history and push updated list to renderer
+    const updatedHistory = addToScanHistory(folderPath)
+    mainWindow.webContents.send(IPC_CHANNELS.SCAN_HISTORY_UPDATED, updatedHistory)
+
     // Abort any in-progress scan first
     scanController?.abort()
     scanController = new AbortController()

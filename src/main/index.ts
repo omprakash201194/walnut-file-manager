@@ -5,6 +5,7 @@ import icon from '../../resources/icon.png?asset'
 import { IPC_CHANNELS } from '../../shared/ipc-types'
 import { registerScanHandlers } from './handlers/scan'
 import { registerOrganizerHandlers } from './handlers/organizer'
+import { getScanHistory } from './handlers/scanHistory'
 
 function createWindow(): BrowserWindow {
   // Create the browser window.
@@ -55,6 +56,14 @@ function registerIpcHandlers(): void {
       return null
     }
     return result.filePaths[0]
+  })
+
+  ipcMain.handle(IPC_CHANNELS.APP_GET_VERSION, () => {
+    return app.getVersion()
+  })
+
+  ipcMain.handle(IPC_CHANNELS.SCAN_HISTORY_GET, () => {
+    return getScanHistory()
   })
 }
 
