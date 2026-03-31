@@ -10,6 +10,8 @@
 import { describe, it, expect, vi } from 'vitest'
 import { resolve, join } from 'path'
 import { walkDirectory, groupBySize, hashFile, groupByHash, canonicalBasename, groupByCanonicalName } from '../handlers/scan'
+import { getCategory, ByTypeStrategy } from '../strategies/byType'
+import { ByExtensionStrategy } from '../strategies/byExtension'
 import type { FileEntry } from '../../../shared/ipc-types'
 
 const FIXTURES_DIR = resolve(__dirname, 'fixtures')
@@ -308,5 +310,100 @@ describe('applyPreset birthtime tiebreaker', () => {
 
     // The two presets should pick different keepers
     expect(keeperNewest.name).not.toBe(keeperOldest.name)
+  })
+})
+
+// ─────────────────────────────────────────────────────────────
+// getCategory
+// ─────────────────────────────────────────────────────────────
+describe('getCategory', () => {
+  it('returns Documents for .pdf extension', () => {
+    expect(getCategory('report.pdf')).toBe('Documents')
+  })
+
+  it('returns Photos for .jpg extension', () => {
+    expect(getCategory('photo.jpg')).toBe('Photos')
+  })
+
+  it('returns Music for .mp3 extension', () => {
+    expect(getCategory('song.mp3')).toBe('Music')
+  })
+
+  it('returns Video for .mp4 extension', () => {
+    expect(getCategory('movie.mp4')).toBe('Video')
+  })
+
+  it('returns Archives for .zip extension', () => {
+    expect(getCategory('archive.zip')).toBe('Archives')
+  })
+
+  it('returns Other for unknown extension', () => {
+    expect(getCategory('file.xyz')).toBe('Other')
+  })
+
+  it('returns Other for file with no extension', () => {
+    expect(getCategory('noext')).toBe('Other')
+  })
+})
+
+// ─────────────────────────────────────────────────────────────
+// ByTypeStrategy
+// ─────────────────────────────────────────────────────────────
+describe('ByTypeStrategy', () => {
+  const strategy = new ByTypeStrategy()
+
+  function makeEntry(name: string): FileEntry {
+    return { path: `/test/${name}`, size: 100, mtime: Date.now(), birthtime: Date.now(), name }
+  }
+
+  it('groups files by MIME category for mixed input', () => {
+    const files = [
+      makeEntry('doc.pdf'),
+      makeEntry('photo.jpg'),
+      makeEntry('song.mp3'),
+      makeEntry('unknown.xyz'),
+    ]
+    const result = strategy.categorize(files, '/target')
+    expect(result['Documents']).toHaveLength(1)
+    expect(result['Documents'][0].name).toBe('doc.pdf')
+    expect(result['Photos']).toHaveLength(1)
+    expect(result['Photos'][0].name).toBe('photo.jpg')
+    expect(result['Music']).toHaveLength(1)
+    expect(result['Music'][0].name).toBe('song.mp3')
+    expect(result['Other']).toHaveLength(1)
+    expect(result['Other'][0].name).toBe('unknown.xyz')
+  })
+
+  it('returns empty map for empty input', () => {
+    const result = strategy.categorize([], '/target')
+    expect(Object.keys(result)).toHaveLength(0)
+  })
+})
+
+// ─────────────────────────────────────────────────────────────
+// ByExtensionStrategy
+// ─────────────────────────────────────────────────────────────
+describe('ByExtensionStrategy', () => {
+  const strategy = new ByExtensionStrategy()
+
+  function makeEntry(name: string): FileEntry {
+    return { path: `/test/${name}`, size: 100, mtime: Date.now(), birthtime: Date.now(), name }
+  }
+
+  it('groups files by raw extension', () => {
+    const files = [makeEntry('a.txt'), makeEntry('b.txt'), makeEntry('c.pdf')]
+    const result = strategy.categorize(files, '/target')
+    expect(result['txt']).toHaveLength(2)
+    expect(result['txt'].map((f) => f.name)).toContain('a.txt')
+    expect(result['txt'].map((f) => f.name)).toContain('b.txt')
+    expect(result['pdf']).toHaveLength(1)
+    expect(result['pdf'][0].name).toBe('c.pdf')
+  })
+
+  it('uses no-extension key for files without extension', () => {
+    const files = [makeEntry('Makefile')]
+    const result = strategy.categorize(files, '/target')
+    expect(result['no-extension']).toHaveLength(1)
+    expect(result['no-extension'][0].name).toBe('Makefile')
   })
 })

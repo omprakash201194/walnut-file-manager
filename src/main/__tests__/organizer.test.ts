@@ -40,7 +40,8 @@ import {
   resolveDestPath,
   buildCategoryMap,
 } from '../handlers/organizer'
-import type { FileEntry } from '../../../shared/ipc-types'
+import { applyPreset } from '../../renderer/src/store/appStore'
+import type { FileEntry, DuplicateGroup } from '../../../shared/ipc-types'
 
 // ─────────────────────────────────────────────────────────────
 // Test helpers
@@ -203,5 +204,97 @@ describe('buildCategoryMap', () => {
     // Verify no subdirectories were created (no disk writes)
     const entries = await fs.readdir(tmpDir)
     expect(entries).not.toContain('Photos')
+  })
+})
+
+// ─────────────────────────────────────────────────────────────
+// applyPreset
+// ─────────────────────────────────────────────────────────────
+describe('applyPreset', () => {
+  const now = Date.now()
+
+  function makeFileEntry(name: string, mtime: number, overrides: Partial<FileEntry> = {}): FileEntry {
+    return {
+      path: `/test/${name}`,
+      size: 100,
+      mtime,
+      birthtime: mtime - 1000,
+      name,
+      ...overrides,
+    }
+  }
+
+  function makeGroup(files: FileEntry[]): DuplicateGroup {
+    return { hash: 'abc123', files, totalWastedBytes: 100 * (files.length - 1) }
+  }
+
+  it('newest preset: keeps file with highest mtime, selects all others', () => {
+    const older = makeFileEntry('old.txt', now - 5000)
+    const newer = makeFileEntry('new.txt', now)
+    const group = makeGroup([older, newer])
+
+    const result = applyPreset([group], 'newest', [])
+
+    // newer is the keeper (highest mtime), older is selected for deletion
+    expect(result.has(older.path)).toBe(true)
+    expect(result.has(newer.path)).toBe(false)
+  })
+
+  it('oldest preset: keeps file with lowest mtime, selects all others', () => {
+    const older = makeFileEntry('old.txt', now - 5000)
+    const newer = makeFileEntry('new.txt', now)
+    const group = makeGroup([older, newer])
+
+    const result = applyPreset([group], 'oldest', [])
+
+    // older is the keeper (lowest mtime), newer is selected for deletion
+    expect(result.has(newer.path)).toBe(true)
+    expect(result.has(older.path)).toBe(false)
+  })
+
+  it('keep-at-least-one: single-file group returns empty Set (nothing to delete)', () => {
+    const file = makeFileEntry('only.txt', now)
+    const group = makeGroup([file])
+
+    const result = applyPreset([group], 'newest', [])
+
+    expect(result.size).toBe(0)
+  })
+
+  it('protected folder: file in protected folder excluded even if it would normally be selected', () => {
+    const protectedDir = path.join('C:', 'protected')
+    const normalDir = path.join('C:', 'normal')
+    const protectedFolders = [protectedDir]
+    const keeper = makeFileEntry('newest.txt', now, { path: path.join(normalDir, 'newest.txt') })
+    const protectedFile = makeFileEntry('protected.txt', now - 1000, { path: path.join(protectedDir, 'protected.txt') })
+    const normalFile = makeFileEntry('normal.txt', now - 2000, { path: path.join(normalDir, 'normal.txt') })
+
+    const group = makeGroup([keeper, protectedFile, normalFile])
+
+    const result = applyPreset([group], 'newest', protectedFolders)
+
+    // keeper is kept (highest mtime), protectedFile excluded by protection, normalFile selected
+    expect(result.has(keeper.path)).toBe(false)
+    expect(result.has(protectedFile.path)).toBe(false)
+    expect(result.has(normalFile.path)).toBe(true)
+  })
+
+  it('multiple groups: works correctly across multiple groups simultaneously', () => {
+    const fileA1 = makeFileEntry('a1.txt', now, { path: '/test/a1.txt' })
+    const fileA2 = makeFileEntry('a2.txt', now - 1000, { path: '/test/a2.txt' })
+    const fileB1 = makeFileEntry('b1.txt', now, { path: '/test/b1.txt' })
+    const fileB2 = makeFileEntry('b2.txt', now - 2000, { path: '/test/b2.txt' })
+
+    const groupA = makeGroup([fileA1, fileA2])
+    const groupB = makeGroup([fileB1, fileB2])
+
+    const result = applyPreset([groupA, groupB], 'newest', [])
+
+    // Each group: newer is keeper, older is selected
+    expect(result.has(fileA2.path)).toBe(true)
+    expect(result.has(fileA1.path)).toBe(false)
+    expect(result.has(fileB2.path)).toBe(true)
+    expect(result.has(fileB1.path)).toBe(false)
+    expect(result.size).toBe(2)
   })
 })
