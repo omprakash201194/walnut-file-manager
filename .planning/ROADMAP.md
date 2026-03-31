@@ -139,7 +139,7 @@ Plans:
 - [x] 04-02-PLAN.md -- Integration tests: scan pipeline + organizer safeMove against real temp filesystem
 - [x] 04-03-PLAN.md -- Scan history IPC + electron-conf handler + Zustand store + Sidebar Recent section; version IPC + sidebar footer
 - [x] 04-04-PLAN.md -- Playwright e2e: update playwright.config.ts + write app.spec.ts and organize.spec.ts
-- [ ] 04-05-PLAN.md -- GitHub Actions CI workflow (push/PR) + release workflow (v* tags, NSIS installer, GitHub Releases)
+- [x] 04-05-PLAN.md -- GitHub Actions CI workflow (push/PR) + release workflow (v* tags, NSIS installer, GitHub Releases)
 
 **UAT criteria:**
 - Scan several folders, close and reopen app -- scan history shows previously scanned folders
