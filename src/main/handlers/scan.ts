@@ -260,7 +260,7 @@ export function registerScanHandlers(mainWindow: BrowserWindow): void {
       // CONTENT DETECTION: Size pre-filter → hash to find true content duplicates
       const sizeGroups = groupBySize(files)
       const sizeCandidates = [...sizeGroups.values()].flat()
-      const contentGroups = await groupByHash(sizeCandidates, signal, (hashed, total, currentPath) => {
+      const contentGroups = await groupByHash(sizeCandidates, signal, (_hashed, total, currentPath) => {
         const progressEvent: ScanProgressEvent = {
           filesScanned: files.length,
           totalFiles: total,

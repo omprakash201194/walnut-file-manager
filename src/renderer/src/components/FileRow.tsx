@@ -2,7 +2,7 @@ import { Checkbox } from '@/components/ui/checkbox'
 import { Badge } from '@/components/ui/badge'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { cn, formatBytes } from '@/lib/utils'
-import type { FileEntry } from '../../../shared/ipc-types'
+import type { FileEntry } from '../../../../shared/ipc-types'
 
 interface FileRowProps {
   file: FileEntry

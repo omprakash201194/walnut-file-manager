@@ -1,7 +1,6 @@
 import { Progress } from '@/components/ui/progress'
 import { Button } from '@/components/ui/button'
-import { formatBytes } from '@/lib/utils'
-import type { ScanProgressEvent } from '../../../shared/ipc-types'
+import type { ScanProgressEvent } from '../../../../shared/ipc-types'
 
 interface ScanProgressProps {
   folderPath: string

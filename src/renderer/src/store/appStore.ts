@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { DuplicateGroup, ScanProgressEvent, CategoryMap } from '../../../shared/ipc-types'
+import { DuplicateGroup, ScanProgressEvent, CategoryMap } from '../../../../shared/ipc-types'
 import * as nodePath from 'path'
 
 export type ScanStatus = 'idle' | 'scanning' | 'complete' | 'error' | 'cancelled'

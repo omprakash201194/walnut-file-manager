@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { useAppStore } from '@/store/appStore'
 import { formatBytes, cn } from '@/lib/utils'
-import type { DuplicateGroup } from '../../../shared/ipc-types'
+import type { DuplicateGroup } from '../../../../shared/ipc-types'
 
 function DeletePanel() {
   const selections = useAppStore((s) => s.selections)

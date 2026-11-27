@@ -166,7 +166,7 @@ function OrganizerPage() {
   }
 
   return (
-    <div className="flex flex-col min-h-full pb-20">
+    <div className="flex flex-col h-full overflow-y-auto pb-20">
       {/* Strategy tabs — D-03: By Type (default) | By Extension */}
       <div className="px-6 pt-4">
         <Tabs

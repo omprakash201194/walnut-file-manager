@@ -5,7 +5,7 @@ import { ScrollArea } from '@/components/ui/scroll-area'
 import DuplicateGroupCard from './DuplicateGroupCard'
 import { useAppStore, applyPreset } from '@/store/appStore'
 import { formatBytes } from '@/lib/utils'
-import type { DuplicateGroup } from '../../../shared/ipc-types'
+import type { DuplicateGroup } from '../../../../shared/ipc-types'
 
 interface DuplicateGroupsProps {
   groups: DuplicateGroup[]

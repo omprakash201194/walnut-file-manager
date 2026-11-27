@@ -2,7 +2,7 @@ import { FileText, Image, Music, Video, Archive, File } from 'lucide-react'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from './ui/accordion'
 import { Badge } from './ui/badge'
 import { ScrollArea } from './ui/scroll-area'
-import type { CategoryMap, FileEntry } from '../../../shared/ipc-types'
+import type { CategoryMap, FileEntry } from '../../../../shared/ipc-types'
 
 // Category icon mapping — ORG-01 / UI-SPEC Category Definitions
 const CATEGORY_ICONS: Record<string, React.ComponentType<{ className?: string }>> = {

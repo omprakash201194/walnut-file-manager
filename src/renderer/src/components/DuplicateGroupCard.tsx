@@ -2,7 +2,7 @@ import { AccordionContent, AccordionItem, AccordionTrigger } from '@/components/
 import FileRow from './FileRow'
 import { formatBytes } from '@/lib/utils'
 import { useAppStore } from '@/store/appStore'
-import type { DuplicateGroup } from '../../../shared/ipc-types'
+import type { DuplicateGroup } from '../../../../shared/ipc-types'
 
 interface DuplicateGroupCardProps {
   group: DuplicateGroup
